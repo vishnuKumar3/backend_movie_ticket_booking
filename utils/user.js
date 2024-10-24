@@ -14,11 +14,15 @@ const signup = (req, callback)=>{
         email:"",
         avatarInfo:{},
         _id:userId,
-        userId:userId.toHexString()
+        userId:userId.toHexString(),
+        createdAt:"",
+        createdAtUnixTime:"",
+        createdAtStr:""
     }    
     if(reqBody.email){
         async.waterfall([
             function(triggerCallback){
+                Object.assign(userInfo,reqBody);
                 mongodb.user.findOne({email:userInfo.email},function(err, response){
                     if(err){
                         triggerCallback(true,{
@@ -41,7 +45,10 @@ const signup = (req, callback)=>{
                 })
             },
             function(prevResponse, triggerCallback){
-                Object.assign(userInfo,reqBody);
+                const momentObj = moment();
+                userInfo.createdAt = momentObj.toDate();
+                userInfo.createdAtUnixTime = momentObj.valueOf();
+                userInfo.createdAtStr = momentObj.format();
                 mongodb.user.insertOne(userInfo,function(err, result){
                     if(err){
                         triggerCallback(true,{

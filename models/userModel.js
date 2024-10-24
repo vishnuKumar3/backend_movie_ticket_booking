@@ -6,10 +6,6 @@ const User = new mongoose.Schema({
         type:String,
         required:true
     },
-    signInType:{
-      type:String,
-      required:true
-    },
     lastName:{
         type:String
     },
@@ -25,13 +21,21 @@ const User = new mongoose.Schema({
         type:String,
         required:true
     },
-    password:{
+    avatarInfo:{
+        type:Object
+    },
+    createdAt:{
         type:String,
         required:true
     },
-    avatarInfo:{
-        type:Object
-    }
+    createdAtUnixTime:{
+        type:Number,
+        required:true
+    },
+    createdAtStr:{
+        type:String,
+        required:true
+    },    
 })
 
 exports.users = mongoose.model("users",User)
