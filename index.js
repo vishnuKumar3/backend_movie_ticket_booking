@@ -6,12 +6,14 @@ const cors = require("cors")
 require("dotenv").config()
 const userRouter = require("./routes/user")
 const connectDb = require("./database_config");
+const moviesRouter = require("./routes/movies")
 
 
 app.use(express.json())
 app.use(cors({origin:"*"}))
 app.use(multer({storage:storage}).any())
 app.use("/user",userRouter)
+app.use("/movies",moviesRouter)
 
 app.listen(process.env.PORT, function(err){
   connectDb();
