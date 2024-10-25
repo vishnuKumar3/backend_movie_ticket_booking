@@ -5,6 +5,7 @@ const fetchMovies = (req, callback)=>{
   const response = {
     status:'success',
     movies:[{
+    movieId:"1234",
     name:"The GOAT",
     releasedYear:2024,
     duration:150,
