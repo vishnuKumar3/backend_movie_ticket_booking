@@ -1,43 +1,35 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
-const showModel = new mongoose.Schema({
+const userBookingsModel = new mongoose.Schema({
+  bookingId:{
+    type:String,
+    required:true
+  },
   _id:{
     type:Schema.Types.ObjectId,
     required:true
-  },   
-  showId:{
+  },
+  userId:{
     type:String,
     required:true
   },  
-  movieId:{
+  showId:{
     type:String,
     required:true
   },
   theatreId:{
     type:String,
     required:true
-  },  
-  languageId:{
+  },
+  movieId:{
     type:String,
     required:true
   },  
-  showDate:{
-    type:Date,
+  selectedSeats:{
+    type:Array,
     required:true
-  }, 
-  showTime:{
-    type:String,
-    required:true
-  },
-  ticketPrice:{
-    type:Number,
-    required:true
-  },  
-  seatStructure:{
-    type:Object,
-    required:true
-  },
+  },//[{rowName:"B",seatNumber:"1"}]
   createdAt:{
     type:Date,
     required:true
@@ -49,7 +41,7 @@ const showModel = new mongoose.Schema({
   createdAtStr:{
     type:String,
     required:true
-  }  
+  }    
 })
 
-exports.shows = mongoose.model("shows",showModel)
+exports.userBookings = mongoose.model("userBookings",userBookingsModel)

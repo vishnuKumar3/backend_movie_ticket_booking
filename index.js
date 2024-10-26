@@ -10,6 +10,7 @@ const moviesRouter = require("./routes/movies");
 const showsRouter = require("./routes/shows");
 const languagesRouter = require("./routes/languages")
 const theatresRouter = require("./routes/theatres")
+const userBookingsRouter = require("./routes/userBookings");
 
 
 app.use(express.json())
@@ -20,6 +21,7 @@ app.use("/movies",moviesRouter)
 app.use("/shows",showsRouter);
 app.use("/languages",languagesRouter);
 app.use("/theatres",theatresRouter);
+app.use("/userBookings",userBookingsRouter);
 
 app.listen(process.env.PORT, function(err){
   connectDb();

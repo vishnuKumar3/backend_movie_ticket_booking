@@ -17,7 +17,8 @@ const signup = (req, callback)=>{
         userId:userId.toHexString(),
         createdAt:"",
         createdAtUnixTime:"",
-        createdAtStr:""
+        createdAtStr:"",
+        appRole:"user_1234"
     }    
     if(reqBody.email){
         async.waterfall([
@@ -119,7 +120,6 @@ const login = (req, callback)=>{
                     message:"Verification completed.Please explore the app",
                     token:token,
                     userData:{
-                        userId:userData.userId || "",
                         avatarInfo:userData.avatarInfo || "",
                         firstName:userData.firstName || "",
                         lastName:userData.lastName || ""

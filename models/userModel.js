@@ -24,6 +24,10 @@ const User = new mongoose.Schema({
     avatarInfo:{
         type:Object
     },
+    appRole:{
+        type:String,
+        required:true
+    },
     createdAt:{
         type:String,
         required:true

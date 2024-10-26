@@ -8,7 +8,7 @@ const formatSeatStructure = (seatStructure)=>{
     if(row["totalSeats"]){
       let seats = [0];
       for(var i=1;i<=row["totalSeats"];i++){
-        seats.push(0);
+        seats.push(1);
       }
       row["seats"]=seats;
     }
