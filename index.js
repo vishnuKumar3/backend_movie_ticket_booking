@@ -8,6 +8,7 @@ const userRouter = require("./routes/user")
 const connectDb = require("./database_config");
 const moviesRouter = require("./routes/movies");
 const showsRouter = require("./routes/shows");
+const languagesRouter = require("./routes/languages")
 
 
 app.use(express.json())
@@ -16,6 +17,7 @@ app.use(multer({storage:storage}).any())
 app.use("/user",userRouter)
 app.use("/movies",moviesRouter)
 app.use("/shows",showsRouter);
+app.use("/languages",languagesRouter);
 
 app.listen(process.env.PORT, function(err){
   connectDb();
