@@ -11,4 +11,16 @@ const findByQuery = async(query, callback)=>{
   }
 }
 
+const findOneByQuery = async(query, callback)=>{
+  try{
+    let res = await languages.findOne(query)
+    callback(null,res);
+  } 
+  catch(err){
+    console.log(err.message)
+    callback(true, {})
+  }
+}
+
 exports.findByQuery = findByQuery;
+exports.findOneByQuery = findOneByQuery;
