@@ -27,6 +27,7 @@ const insertMany = async (data, callback)=>{
 const findByQuery = async(query, projection, callback)=>{
   try{
     let res = await shows.find(query,projection)
+    console.log("find result",query,res)
     callback(null,res);
   } 
   catch(err){
