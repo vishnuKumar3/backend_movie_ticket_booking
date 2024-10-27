@@ -12,11 +12,27 @@ const fetchMovies = (req, callback)=>{
     function(triggerCallback){
       let criteria = {};
       if(reqBody.startsFrom){
-        criteria["releaseDate"] = {$gt:moment(reqBody.startsFrom).toDate()}
+        criteria["releaseDate"] = {$gte:moment(reqBody.startsFrom).toDate()}
       }
       if(reqBody.startsBefore){
-        criteria["releaseDate"] = {$lte:moment(reqBody.startsFrom).toDate()}
+        criteria["releaseDate"] = {$lte:moment(reqBody.startsBefore).toDate()}
       }      
+      if(reqBody.startsFrom && reqBody.startsBefore){
+        criteria["$and"]=[{"releaseDate":{$gte:moment(reqBody.startsFrom).toDate()}},{releaseDate:{$lte:moment(reqBody.startsBefore).toDate()}}]
+      }
+      if(reqBody.searchKeyword){
+        let pattern = /[.*]+/;
+        if(pattern.test(reqBody.searchKeyword)){
+          triggerCallback(true,{
+            status:"error",
+            message:"Please provide a valid keyword"
+          })
+          return;
+        }
+        else{
+          criteria["movieName"] = {$regex:`${reqBody.searchKeyword}`,$options:"i"};
+        }        
+      }
       mongodb.movies.findByQuery(criteria,{},function(err, result){
         if(err){
           triggerCallback(true, {
