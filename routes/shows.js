@@ -3,7 +3,7 @@ const router = express.Router();
 const utils = require("../utils")
 const jwt = require("jsonwebtoken")
 
-router.use(function(req, res, next){
+router.use("/book-tickets",function(req, res, next){
   let headers = req.headers;
   let userId = ""
   if(headers && headers.authorization){
