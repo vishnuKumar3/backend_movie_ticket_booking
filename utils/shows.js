@@ -66,7 +66,7 @@ const fetchShowTheatres = (req, callback)=>{
           {$match:criteria},
           {$project:{_id:0,seatStructure:0}}
         ]
-        mongodb.shows.findByQuery(query,{}, function(err, result){
+        mongodb.shows.findByQuery(criteria,{}, function(err, result){
           if(err){
             triggerCallback(true,{
               status:"error",
