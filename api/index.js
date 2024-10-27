@@ -24,6 +24,7 @@ app.use("/theatres",theatresRouter);
 app.use("/userBookings",userBookingsRouter);
 
 app.get("/",function(req, res){
+  connectDb();
   res.json({
     status:"success"
   })
