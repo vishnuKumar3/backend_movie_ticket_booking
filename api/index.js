@@ -14,7 +14,7 @@ const userBookingsRouter = require("../routes/userBookings");
 
 
 app.use(express.json())
-app.use(cors({origin:"*"}))
+app.use(cors({origin:["https://motick.netlify.app"]}))
 app.use(multer({storage:storage}).any())
 app.use("/user",userRouter)
 app.use("/movies",moviesRouter)
@@ -23,18 +23,10 @@ app.use("/languages",languagesRouter);
 app.use("/theatres",theatresRouter);
 app.use("/userBookings",userBookingsRouter);
 
-app.use(function(req, res,next){
-  connectDb();
-  console.log("Initialization of db connection");
-  setTimeout(()=>{
-      next();
-  },1000)
-})
-
 app.get("/",function(req, res){
-  setTimeout(()=>{
+  setInterval(()=>{
     connectDb();
-  },20000)
+  },50000)
   res.json({
     status:"success"
   })
