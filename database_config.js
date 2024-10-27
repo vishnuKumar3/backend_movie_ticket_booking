@@ -4,10 +4,7 @@ console.log("db_config");
 
 const connectDb = ()=>{
   mongoose.connect(
-    process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    process.env.MONGODB_URI);
     
     const db = mongoose.connection;
     
