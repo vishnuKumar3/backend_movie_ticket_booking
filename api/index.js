@@ -23,6 +23,14 @@ app.use("/languages",languagesRouter);
 app.use("/theatres",theatresRouter);
 app.use("/userBookings",userBookingsRouter);
 
+app.use(function(req, res,next){
+  connectDb();
+  console.log("Initialization of db connection");
+  setTimeout(()=>{
+      next();
+  },1000)
+})
+
 app.get("/",function(req, res){
   setTimeout(()=>{
     connectDb();
