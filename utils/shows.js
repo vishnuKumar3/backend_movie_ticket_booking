@@ -95,6 +95,7 @@ const fetchShowTheatres = (req, callback)=>{
                 return ac;
               }
             },{})
+            console.log("formatted result",formattedResult, Object.values(formattedResult))
             triggerCallback(null, Object.values(formattedResult) || []);
           }
         })
