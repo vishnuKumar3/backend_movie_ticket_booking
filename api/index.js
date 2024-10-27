@@ -16,6 +16,14 @@ const userBookingsRouter = require("../routes/userBookings");
 app.use(express.json())
 app.use(cors({origin:["https://motick.netlify.app"]}))
 app.use(multer({storage:storage}).any())
+
+app.use(function(req,res,next){
+  console.log("app level middleware");
+  //connectDb called for every time because in vercel mongo connection issues are present because of less resources for free tier
+  connectDb();
+  next();
+})
+
 app.use("/user",userRouter)
 app.use("/movies",moviesRouter)
 app.use("/shows",showsRouter);
@@ -24,9 +32,6 @@ app.use("/theatres",theatresRouter);
 app.use("/userBookings",userBookingsRouter);
 
 app.get("/",function(req, res){
-  setInterval(()=>{
-    connectDb();
-  },50000)
   res.json({
     status:"success"
   })
