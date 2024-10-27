@@ -1,12 +1,13 @@
 const async = require("async")
 const mongodb = require("../mongodb");
+const { UserBookingStatusTypes } = require("../config/config");
 
 const fetchUserBookings = (req, callback)=>{
   let reqBody = req.body;
   if(reqBody && reqBody.userId){
     async.waterfall([
       function(triggerCallback){
-        const criteria = {userId:reqBody.userId};
+        const criteria = {userId:reqBody.userId,status:UserBookingStatusTypes.ACTIVE};
         mongodb.userBookings.findByQuery(criteria,function(err, result){
           if(err){
             triggerCallback(true,{
@@ -31,7 +32,7 @@ const fetchUserBookings = (req, callback)=>{
         },{"theatreIds":{},"movieIds":{}})
         theatreAndMovieInfo["theatreIds"] = Object.keys(theatreAndMovieInfo["theatreIds"])
         theatreAndMovieInfo["movieIds"] = Object.keys(theatreAndMovieInfo["movieIds"])
-        mongodb.movies.findByQuery({movieId:{$in:theatreAndMovieInfo["movieIds"]}},function(err,result){
+        mongodb.movies.findByQuery({movieId:{$in:theatreAndMovieInfo["movieIds"]}},{bigPoster:0,languageIDs:0},function(err,result){
           if(err){
             triggerCallback(true,{
               status:"error",

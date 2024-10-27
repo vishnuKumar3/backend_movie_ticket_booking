@@ -3,6 +3,7 @@ const mongodb = require("../mongodb");
 const {ObjectId} = require("mongodb")
 const moment = require("moment")
 const {addTimeStamps}  =require("./commonFunctions");
+const {UserBookingStatusTypes} = require("../config/config")
 
 const fetchShow = (req, callback)=>{
   let reqBody = req.body;
@@ -293,6 +294,8 @@ const bookTickets = (req, callback)=>{
           selectedSeats:reqBody.selectedSeats,
           userId:reqBody.userId,
           theatreId:showInfo.theatreId,
+          showDate:showInfo.showDate,
+          status:UserBookingStatusTypes.ACTIVE,
           movieId:showInfo.movieId
         };
         console.log("user bookings",recordToInsert)

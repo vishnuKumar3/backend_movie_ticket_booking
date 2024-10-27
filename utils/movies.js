@@ -10,7 +10,14 @@ const fetchMovies = (req, callback)=>{
 
   async.waterfall([
     function(triggerCallback){
-      mongodb.movies.findByQuery({},function(err, result){
+      let criteria = {};
+      if(reqBody.startsFrom){
+        criteria["releaseDate"] = {$gt:moment(reqBody.startsFrom).toDate()}
+      }
+      if(reqBody.startsBefore){
+        criteria["releaseDate"] = {$lte:moment(reqBody.startsFrom).toDate()}
+      }      
+      mongodb.movies.findByQuery(criteria,{},function(err, result){
         if(err){
           triggerCallback(true, {
             status:"error",

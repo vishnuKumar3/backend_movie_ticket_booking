@@ -122,7 +122,8 @@ const login = (req, callback)=>{
                     userData:{
                         avatarInfo:userData.avatarInfo || "",
                         firstName:userData.firstName || "",
-                        lastName:userData.lastName || ""
+                        lastName:userData.lastName || "",
+                        appRole: userData.appRole || ""
                     }
                 })
             }

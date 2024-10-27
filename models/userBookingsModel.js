@@ -30,6 +30,14 @@ const userBookingsModel = new mongoose.Schema({
     type:Array,
     required:true
   },//[{rowName:"B",seatNumber:"1"}]
+  showDate:{
+    type:Date,
+    required:true,
+  },
+  status:{
+    type:String,
+    required:true
+  },  
   createdAt:{
     type:Date,
     required:true

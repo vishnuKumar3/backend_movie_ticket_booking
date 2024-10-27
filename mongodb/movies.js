@@ -13,9 +13,9 @@ const insertOne = async (data, callback)=>{
   }
 }
 
-const findByQuery = async(query, callback)=>{
+const findByQuery = async(query, projection, callback)=>{
   try{
-    let res = await movies.find(query)
+    let res = await movies.find(query, projection)
     callback(null,res);
   } 
   catch(err){
