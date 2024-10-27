@@ -56,10 +56,15 @@ const fetchShowTheatres = (req, callback)=>{
       function(triggerCallback){
         let momentObj = moment(reqBody.showDate)
         const criteria = {movieId: reqBody.movieId, languageId: reqBody.languageId, showDate: momentObj.toDate()};
+        const groupBy = {
+          movieId:"$movieId",
+          languageId:"$languageId",
+          showDate:"$showDate",
+          theatreId:"$theatreId"
+        }
         const query = [
           {$match:criteria},
-          {$group:{_id:criteria,showTimings:{$addToSet:"$showTime"},theatreId:{$first:"$theatreId"},showId:{$first:"$showId"}}},
-          {$project:{_id:0}}
+          {$project:{_id:0,seatStructure:0}}
         ]
         mongodb.shows.aggregate(query, function(err, result){
           if(err){
@@ -69,7 +74,28 @@ const fetchShowTheatres = (req, callback)=>{
             })
           }
           else{
-            triggerCallback(null, result)
+            let formattedResult = result.reduce((ac,showInfo)=>{
+              if(showInfo["theatreId"]){
+                let clonedShow = JSON.parse(JSON.stringify(showInfo));
+                let recordStructure = {
+                  showTime:clonedShow["showTime"],
+                  showId: clonedShow["showId"]
+                }
+                let theatreId = showInfo["theatreId"]
+                if(ac[theatreId]){
+                  ac[theatreId]["showTimings"].push(recordStructure);
+                }
+                else{
+                  ac[theatreId] = clonedShow;
+                  ac[theatreId]["showTimings"] =  [recordStructure];
+                }
+                return ac;
+              }
+              else{
+                return ac;
+              }
+            },{})
+            triggerCallback(null, Object.values(formattedResult) || []);
           }
         })
       },
