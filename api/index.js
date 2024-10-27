@@ -4,13 +4,13 @@ const multer = require("multer");
 const storage = multer.memoryStorage()
 const cors = require("cors")
 require("dotenv").config()
-const userRouter = require("./routes/user")
-const connectDb = require("./database_config");
-const moviesRouter = require("./routes/movies");
-const showsRouter = require("./routes/shows");
-const languagesRouter = require("./routes/languages")
-const theatresRouter = require("./routes/theatres")
-const userBookingsRouter = require("./routes/userBookings");
+const userRouter = require("../routes/user")
+const connectDb = require("../database_config");
+const moviesRouter = require("../routes/movies");
+const showsRouter = require("../routes/shows");
+const languagesRouter = require("../routes/languages")
+const theatresRouter = require("../routes/theatres")
+const userBookingsRouter = require("../routes/userBookings");
 
 
 app.use(express.json())
@@ -28,7 +28,6 @@ app.get("/",function(req, res){
     status:"success"
   })
 })
-
 
 app.listen(process.env.PORT, function(err){
   connectDb();
