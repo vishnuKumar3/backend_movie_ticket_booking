@@ -74,6 +74,7 @@ const fetchShowTheatres = (req, callback)=>{
             })
           }
           else{
+            console.log("find shows",err,result)
             let formattedResult = result.reduce((ac,showInfo)=>{
               if(showInfo["theatreId"]){
                 let clonedShow = JSON.parse(JSON.stringify(showInfo));
