@@ -23,7 +23,15 @@ app.use("/languages",languagesRouter);
 app.use("/theatres",theatresRouter);
 app.use("/userBookings",userBookingsRouter);
 
+app.get("/",function(req, res){
+  res.json({
+    status:"success"
+  })
+})
+
 app.listen(process.env.PORT, function(err){
   connectDb();
   console.log(`server listening on port ${process.env.PORT}`)
 })
+
+module.exports = app;
