@@ -14,7 +14,7 @@ const userBookingsRouter = require("../routes/userBookings");
 
 
 app.use(express.json())
-app.use(cors({origin:["https://motick.netlify.app"]}))
+app.use(cors({origin:["https://motick.netlify.app","http://localhost:5173"]}))
 app.use(multer({storage:storage}).any())
 
 app.use(function(req,res,next){
